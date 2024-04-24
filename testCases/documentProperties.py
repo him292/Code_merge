@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from pageObjects.Locators import LoginPage, DashboardTabs, iframes, regDocument_properties
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
-from utilities import ExcelUtils
+from utilities import XLUtils
 
 
 class Test_Document_Info:
@@ -16,7 +16,7 @@ class Test_Document_Info:
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
     widget_name = 'Document Register'
-    path = ".//TestData/LoginDataSheet.xlsx"
+    path = ".//TestData/DataManager.xlsx"
     docTitles = "02-ACM-ARC-MDL-020101"
 
     logger = LogGen.loggen()

@@ -1,67 +1,87 @@
 import time
-from selenium.webdriver.support import expected_conditions as EC
 import pytest
-from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium import webdriver
+# now to access the action methods within loginPage.py file
 from pageObjects.Locators import LoginPage
+# =====================================
+# below line is to get access to the utilities file
 from utilities.readProperties import ReadConfig
+# now importing the logger class to access it within this file
 from utilities.customLogger import LogGen
 from utilities import XLUtils
 
-class Test_002_DDT_Login:
-    path = ".//TestData//DataManager.xlsx"
-    #get data from utility file to avoid hard coded values in test file
+
+# web login details: server url + login credentials
+class Test_DDT_login:
+    # create variables for login
+    # below valriables values are coming from utilities.ini file
+    # which is further coming from readProperties.py file
+    # now ReadConfig class can directly call the methods
+
     baseURL = ReadConfig.getURL()
-    #username = ReadConfig.getUsername()
-    #password = ReadConfig.getPassword()
+    # now we're taking login details from below excel file
+    path = ".//TestData/DataManager.xlsx"
+    # therefore, we dont need below 2 lines of code
+
+    # username = ReadConfig.getUsername()
+    # password = ReadConfig.getPassword()
+
+    # below method call is directly using the "logGen" class becoz its a static method
+    # declaring a logger variable, becoz loggen() returns a logger in the logGen class
 
     logger = LogGen.loggen()
 
-    # Use self keyword to access Class
-    def test_login_ddt(self,setup):
-        self.logger.info("********** Test_002_DDT_Login ********")
-        self.logger.info("********** Verifying login DDT test ********")
+    # now, this logger variable will be used to send log messages
+    # simple login test
+    # def test_login(self):
+    def test_login_ddt(self, setup):
+        self.logger.info("******** Test+002_DDT_LoginTest*****")
         self.driver = setup
         self.driver.get(self.baseURL)
-     #create object of login class to access methods in it
+
         self.lp = LoginPage(self.driver)
         time.sleep(5)
-
-        self.rows = XLUtils.getRowCount(self.path,"Sheet1")
-        print("Number of row in excel",self.rows)
-
-        #lst_status=[]       #empty list variable to store status
+        # ******** Changes For DDT *********
+        # here we'll pass two parameters to get the row count
+        # 1st is path of the excel file which is in PATH Variable
+        # 2nd is excel file name, "sheet1" in LoginDataSheet
+        self.rows = XLUtils.getRowCount(self.path, 'Sheet1')
+        print("Number of rows in Excel: ", self.rows)
+        # the results of the test
+        # this will contain only Pass/Fail
+        # to iterate all rows/values within the excel file
+        # we started the range from 2, bcz, the header should not considered
+        # within the Excel sheet data
         for r in range(2, self.rows+1):
-            try:
-                self.username = XLUtils.readData(self.path,"Sheet1",r,1)
-                self.password = XLUtils.readData(self.path,"Sheet1",r,2)
 
-                self.lp.setUserName(self.username)
+            try:
+                self.user = XLUtils.readData(self.path, 'Sheet1', r, 1)
+                self.password = XLUtils.readData(self.path, 'Sheet1', r, 2)
+
+                self.lp.setUserName(self.user)
                 self.lp.setPassword(self.password)
                 self.lp.clickLogin()
                 time.sleep(10)
+                # capture of the homepage once logged in
+                # belo try is to check if the title is available
+                actual_title = self.driver.title
+                title_options = ["GENERIC Dashboard", "3DEXPERIENCE Platform", "PIC Generic"]
 
-                act_title = self.driver.title
-
-                if act_title.__contains__("GENERIC Dashboard"):
-                    self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\loginTest_screenshots\\" + self.username +".png")
-                    self.logger.info("*** Login is passed by user - " + self.username)
-                    self.logger.info(act_title)
+                if any(x in actual_title for x in title_options):
+                    time.sleep(3)
                     self.lp.clickProfile()
-                    time.sleep(5)
+                    time.sleep(2)
                     self.lp.clickLogout()
-                    time.sleep(10)
-
-                else:
-                    self.logger.info("*** Login is Failed by user - " + self.username)
-                    self.driver.save_screenshot(
-                        "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\loginTest_screenshots\\Failed\\" + self.username + ".png")
-                    self.logger.info(act_title)
                     time.sleep(5)
+                else:
+                    self.logger.info("*** Title not found**")
             except Exception as e:
-                self.logger.info("*** Test is Failed ***")
+                self.logger.info("*** Logout Failed****")
                 raise e
 
 
-        self.logger.info("*** End of Login DDT Test ***")
-        self.logger.info("*** Test_002_DDT_Login test completed ***")
+            # below check is to see if there is any FAILED test case within
+            # the lst_Status variable, then this condition will be displayed
+
+        self.logger.info("***** End of Login DDT Tests ****")
+        self.logger.info("****** Completed Test_002_DDT_login ***")

@@ -18,7 +18,7 @@ class Test_Transmittal:
     widget_name = 'Document Register'
     # widget_name = 'Workflow Management'
     # path = ".//TestData/LoginDataSheet.xlsx"
-    path = "D://My Projects//Selenium//TestFramework//TestData//LoginDataSheet.xlsx"
+    path = "D://Git//test-automation//feature//Code_merge//TestData//DataManager.xlsx"
     # docTitles = ["02-DAH-LAN-3DM-245004", "02-ABI-BMN-3DM-000011"]
     docTitles = "02-CH2-STR-MDL-900123"
     restore_xpath = "//div[contains(@class, 'moduleWrapper clearfix ifwe-tabview')]//div[@class='wp-tabview-panel']//div[@class='widget-dd-menu dropdown-menu dropdown-menu-root dropdown dropdown-root']//child::span[@class='maximize-icon fonticon fonticon-resize-small']"

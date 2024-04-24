@@ -15,7 +15,7 @@ class LogGen:
     def loggen():
         logger = logging.getLogger()
         # below file name is the path where you want to generate the logs
-        fhandler = logging.FileHandler(filename='D:\\Git//test-automation\\3DX_pythonProject\\Logs\\automation.log', mode='a')
+        fhandler = logging.FileHandler(filename='D:\\Git\\test-automation\\feature\\Code_merge\\Logs\\automation.log', mode='a')
         # then the timestamp format
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         fhandler.setFormatter(formatter)

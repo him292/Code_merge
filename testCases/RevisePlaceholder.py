@@ -17,7 +17,7 @@ class Test__Revise_Placeholder:
     baseURL = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
-    path = "D://My Projects//Selenium//TestFramework//TestData//LoginDataSheet.xlsx"
+    path = "D://Git//test-automation//feature//Code_merge//TestData//DataManager.xlsx"
 
     logger = LogGen.loggen()
 

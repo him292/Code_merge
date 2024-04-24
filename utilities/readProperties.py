@@ -1,4 +1,4 @@
-#This file reads the common data from ini file - Configurations/config.in
+# This file reads the common data from ini file - Configurations/config.in
 import os
 import configparser
 
@@ -12,7 +12,8 @@ import configparser
 # config.read(config_path)
 
 config = configparser.ConfigParser()
-config.read("D:\\Git//test-automation\\3DX_pythonProject\\Configurations\\config.ini")
+config.read("D:\\Git\\test-automation\\feature\\Code_merge\\Configurations\\config.ini")
+
 
 class ReadConfig:
     # for every variable access, need same no of methods

@@ -9,11 +9,12 @@ import time
 from datetime import datetime
 import requests
 
+
 # to avoid creating/writing the driver (statement) in each step , we can add that step within this confstep file
 # now we can use the "setup" keyword everywhere in place of "driver"
 
 @pytest.fixture()
-def setup(browser):     #Run test on desired browser
+def setup(browser):  # Run test on desired browser
     if browser == 'chrome':
         driver = webdriver.Chrome()
         print("Launching Chrome Browser............")
@@ -32,16 +33,19 @@ def setup(browser):     #Run test on desired browser
         driver.maximize_window();
     return driver
 
+
 # Now, to run tests on the desired browser, go to the “conftest.py” file and add the below-mentioned 2 methods,
 # which will get the browser from the command line. So update below:
-def pytest_addoption(parser):   #This will get the value from CLI / hooks
+def pytest_addoption(parser):  # This will get the value from CLI / hooks
     parser.addoption("--browser")
+
 
 # the upper method will get the browser value from the command line and put it in “browser” variable.
 # Once the browser value is there, this “browser” value will be passed via browser() method below to the SetUp() method, that decides which browser it needs to launch.
 @pytest.fixture()
-def browser(request):       #This will return the browser value to setup method
+def browser(request):  # This will return the browser value to setup method
     return request.config.getoption("--browser")
+
 
 # this method returns the ‘browser’ value to Setup() method. Now, to make it work,
 # add this “browser” variable as argument In Setup() method, followed by a condition statement.
@@ -56,6 +60,7 @@ def pytest_configure(config):
         config.stash[metadata_key]['Project Name'] = '3DX_pythonProject'
         config.stash[metadata_key]['Module Name'] = 'Impararia'
         config.stash[metadata_key]['Tester'] = 'Impararia_Tester'
+
 
 # It is hook for delete/Modify Environment info to HTML Report
 @pytest.hookimpl(optionalhook=True)
@@ -77,6 +82,7 @@ def pytest_runtest_makereport(item, call):
             # Take screenshot and save in a dedicated directory
             web_driver.save_screenshot(f"screenshots/{rep.nodeid.replace('::', '_')}.png")
 
+
 # @pytest.fixture(scope="function", autouse=True)
 # def driver(request):
 #     # Initialize WebDriver
@@ -94,9 +100,8 @@ def pytest_runtest_makereport(item, call):
         # Assume the fixture for the driver is named 'setup'
         if 'setup' in item.fixturenames:  # Check if 'setup' fixture is used in the test
             web_driver = item.funcargs['setup']
-            screenshot_path = f"D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\screenshot_{item.nodeid.replace('::', '__')}.png"
+            screenshot_path = f"D:\\Git\\test-automation\\feature\\Code_merge\\Screenshots\\screenshot_{item.nodeid.replace('::', '__')}.png"
             web_driver.save_screenshot(screenshot_path)
-
 
         # Check if extra attribute exists, if not, create it
         # if not hasattr(report, 'extra'):
@@ -112,4 +117,5 @@ def pytest_runtest_makereport(item, call):
         # Open the HTML report file in append mode
         with open("report.html", "a") as html_report:
             # Write the image tag directly to the HTML report
-            html_report.write(f"<div><img src='{screenshot_path}' alt='Screenshot' style='width:600px;height:300px;'/></div>")
+            html_report.write(
+                f"<div><img src='{screenshot_path}' alt='Screenshot' style='width:600px;height:300px;'/></div>")
