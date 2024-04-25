@@ -11,7 +11,7 @@ from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
 class Test_004_SubWorkflow_Creation:
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = "D://Git//test-automation//feature//Code_merge//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     # username = ReadConfig.getUsername()
     # password = ReadConfig.getPassword()
@@ -61,8 +61,7 @@ class Test_004_SubWorkflow_Creation:
         self.wf_mg = worklow_mg(self.driver)
         # self.wf_mg.select_WF_filter(self.filter1,self.filter2)
         # time.sleep(20)
-        # self.driver.save_screenshot(
-        #     "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\filter_selected.png")
+        # self.driver.save_screenshot(".\\Screenshots\\subworkflow\\filter_selected.png")
         # time.sleep(20)
         # self.logger.info("** Filter successfully selected **")
         self.wf_mg.select_Workflow(self.wf_no)

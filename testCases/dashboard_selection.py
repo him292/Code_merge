@@ -10,7 +10,7 @@ from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
 
-class Test_Dashboard_selection:
+class Test_003_Dashboard_selection:
     baseURL = ReadConfig.getURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
@@ -83,5 +83,19 @@ class Test_Dashboard_selection:
         self.dt = DashboardAndTabs(self.driver)
         time.sleep(5)
         self.dt.clickdocumentmgtab()
+        self.logger.info("*** Navigated to document management tab ***")
         time.sleep(5)
-        self.logger.info("*** Ended Navigate Document Management tab test ***")
+        self.dt.clickworkflowmgtab()
+        self.logger.info("*** Navigated to Workflow management tab ***")
+        time.sleep(5)
+        self.dt.clickmailmgtab()
+        self.logger.info("*** Navigated to Mail management tab ***")
+        time.sleep(5)
+        self.dt.clickalltasksviewtab()
+        self.logger.info("*** Navigated to All Task View tab ***")
+        time.sleep(5)
+        self.dt.clickprojectinsightstab()
+        self.logger.info("*** Navigated to Project Insight tab ***")
+
+        time.sleep(5)
+        self.logger.info("*** Ended Navigate Dashboard Selection test ***")

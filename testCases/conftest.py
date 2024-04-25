@@ -7,14 +7,14 @@ from selenium import webdriver
 from pytest_html import extras
 import time
 from datetime import datetime
-import requests
+
 
 
 # to avoid creating/writing the driver (statement) in each step , we can add that step within this confstep file
 # now we can use the "setup" keyword everywhere in place of "driver"
 
 @pytest.fixture()
-def setup(browser):  # Run test on desired browser
+def setup(browser, request):  # Run test on desired browser
     if browser == 'chrome':
         driver = webdriver.Chrome()
         print("Launching Chrome Browser............")
@@ -31,8 +31,16 @@ def setup(browser):  # Run test on desired browser
         driver = webdriver.Chrome()
         print("Launching default Chrome Browser............")
         driver.maximize_window();
-    return driver
 
+    # Teardown method
+    def teardown():
+        print("    Closing browser............")
+        driver.quit()
+
+    # Register the teardown function with request.addfinalizer()
+    request.addfinalizer(teardown)
+
+    return driver
 
 # Now, to run tests on the desired browser, go to the “conftest.py” file and add the below-mentioned 2 methods,
 # which will get the browser from the command line. So update below:
@@ -57,7 +65,7 @@ def browser(request):  # This will return the browser value to setup method
 def pytest_configure(config):
     metadata = config.pluginmanager.getplugin("metadata")
     if metadata:
-        config.stash[metadata_key]['Project Name'] = '3DX_pythonProject'
+        config.stash[metadata_key]['Project Name'] = 'feature\\Code_merge'
         config.stash[metadata_key]['Module Name'] = 'Impararia'
         config.stash[metadata_key]['Tester'] = 'Impararia_Tester'
 

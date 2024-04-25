@@ -11,7 +11,7 @@ from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
 class Test_008_Update_Comments:
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = ".//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     # username = ReadConfig.getUsername()
     # password = ReadConfig.getPassword()
@@ -81,5 +81,5 @@ class Test_008_Update_Comments:
         self.wf_mg.filtered_comments("Remove")
 
 
-        self.logger.info("*** Ended Importing Comments test ***")
+        self.logger.info("*** Ended Updating Comments test ***")
 

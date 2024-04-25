@@ -5,14 +5,14 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 
-from pageObjects.Locators import LoginPage, DashboardTabs, iframes, regDocument_properties
+from pageObjects.Locators import LoginPage, DashboardAndTabs, iframes, regDocument_properties
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 from utilities import XLUtils
 
 
 class Test_Document_Info:
-    baseURL = ReadConfig.getApplicationURL()
+    baseURL = ReadConfig.getURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
     widget_name = 'Document Register'
@@ -27,11 +27,11 @@ class Test_Document_Info:
         self.driver.get(self.baseURL)
 
         self.iframe = iframes(self.driver)
-        self.dt = DashboardTabs(self.driver)
+        self.dt = DashboardAndTabs(self.driver)
         self.dp = regDocument_properties(self.driver)
         self.lp = LoginPage(self.driver)
 
-        self.lp.setUsername(self.username)
+        self.lp.setUserName(self.username)
         self.lp.setPassword(self.password)
         self.lp.clickLogin()
         self.logger.info("*** Login is successful ***")

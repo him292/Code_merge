@@ -11,7 +11,7 @@ from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
 class Test_004_Workflow_Creation:
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = ".//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()

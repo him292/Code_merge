@@ -11,7 +11,7 @@ from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
 class Test_009_Workflow_mgt_tab_actions:
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = ".//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     # username = ReadConfig.getUsername()
     # password = ReadConfig.getPassword()
@@ -60,6 +60,7 @@ class Test_009_Workflow_mgt_tab_actions:
         self.wf_mg.export_CRS()
         self.logger.info("** CRS exported successfully in for desired workflow**")
 
+        # Customize columns visibility
         self.wf_mg.click_on_customize_column_filter()
         for column in self.columns:
             self.wf_mg.customize_column_filter([column])

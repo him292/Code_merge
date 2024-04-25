@@ -10,23 +10,22 @@ from pageObjects.Locators import LoginPage, DashboardAndTabs, documentRegisterAn
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
+
 class Test_003_Document_Register:
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = ".//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
-    #filepath = "C://Users//Lenovo//Desktop//sample_files//02-DAH-LAN-3DM-245003_A.pdf"
+    # filepath = "C://Users//Lenovo//Desktop//sample_files//02-DAH-LAN-3DM-245003_A.pdf"
 
     logger = LogGen.loggen()
 
-
-    def test_Document_register(self,setup):
-
+    def test_Document_register(self, setup):
         self.dashboard = XLUtils.readData(self.path, "Inputs", 2, 1)
         self.widget_name = XLUtils.readData(self.path, "Inputs", 2, 2)
-        self.folder_path = XLUtils.readData(self.path, "Inputs",2 , 6)
+        self.folder_path = XLUtils.readData(self.path, "Inputs", 2, 6)
         self.title = XLUtils.readData(self.path, "Inputs", 3, 6)
-        self.wo_number = XLUtils.readData(self.path, "Inputs",4 , 6)
+        self.wo_number = XLUtils.readData(self.path, "Inputs", 4, 6)
         self.status = XLUtils.readData(self.path, "Inputs", 5, 6)
         self.stage = XLUtils.readData(self.path, "Inputs", 6, 6)
 
@@ -60,9 +59,10 @@ class Test_003_Document_Register:
         time.sleep(5)
         self.docReg_Wf.select_file(self.folder_path)
         time.sleep(5)
-        self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\fileuploaded.png")
+        self.driver.save_screenshot(
+            ".\\Screenshots\\DocReg_screenshots\\fileuploaded.png")
         self.logger.info("** file is uploaded 100% **")
-        self.docReg_Wf.store_file_names(self.path,self.folder_path)
+        self.docReg_Wf.store_file_names(self.path, self.folder_path)
 
         self.docReg_Wf.open_document_edit_form()
         self.logger.info("** Document mass edit form is opened **")
@@ -74,7 +74,7 @@ class Test_003_Document_Register:
         self.logger.info("*** Status successfully selected***")
         self.docReg_Wf.update_document_stage(self.stage)
         self.driver.save_screenshot(
-            "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\detailsUpdated.png")
+            ".\\Screenshots\\DocReg_screenshots\\detailsUpdated.png")
         self.logger.info("*** Stage successfully selected***")
         self.docReg_Wf.test_save_document()
         self.logger.info("*** Clicked on SAVE button ***")
@@ -86,4 +86,3 @@ class Test_003_Document_Register:
         time.sleep(5)
         self.logger.info("** Document Successfully Registered **")
         self.logger.info("*** Ended Navigate Document Management tab test ***")
-

@@ -12,7 +12,8 @@ import configparser
 # config.read(config_path)
 
 config = configparser.ConfigParser()
-config.read("D:\\Git\\test-automation\\feature\\Code_merge\\Configurations\\config.ini")
+# config.read("D:\\Git\\test-automation\\feature\\Code_merge\\Configurations\\config.ini")
+config.read(".\\Configurations\\config.ini")
 
 
 class ReadConfig:

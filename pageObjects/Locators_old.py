@@ -312,7 +312,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                 regDoc = WebDriverWait(self.driver, 50).until(expected_conditions.presence_of_element_located(
                     (By.XPATH, "//a[contains(@href, '#') and text() = '" + docname + "']")))
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\docregistered.png")
+                    "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\DocReg_screenshots\\docregistered.png")
                 docno = regDoc.text
                 if regDoc.is_displayed():
                     print(f"'{docno}' is displayed")
@@ -322,7 +322,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                     print(f"'{docno}' is not displayed")
                     # assert docno == expected_docno, f"Expected text '{expected_docno}' but found '{docno}'"
                     self.driver.save_screenshot(
-                        "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\docNotRegistered.png")
+                        "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\DocReg_screenshots\\docNotRegistered.png")
                     assert False
 
         except Exception as e:
@@ -527,7 +527,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                 print("Workflow is started")
             else:
                 print("Workflow is not started")
-            self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\workflow\\workflow_started.png")
+            self.driver.save_screenshot("D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\workflow\\workflow_started.png")
             time.sleep(3)
 
         except Exception as e:
@@ -641,7 +641,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + wf + "']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\wf_selected.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\subworkflow\\wf_selected.png")
         except Exception as e:
             raise e
 
@@ -660,7 +660,7 @@ class worklow_mg:
                 (By.XPATH,self.swf_creation_page)))
             time.sleep(5)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\create_subworkflow_form.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\subworkflow\\create_subworkflow_form.png")
 
         except Exception as e:
             raise e
@@ -792,7 +792,7 @@ class worklow_mg:
                 (By.XPATH, self.create_btn))).click()
             time.sleep(3)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\swf_created.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\subworkflow\\swf_created.png")
         except Exception as e:
             raise e
 
@@ -834,7 +834,7 @@ class worklow_mg:
                 print("SubWorkflow is started")
             else:
                 print("SubWorkflow is not started")
-            self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\Subworkflow_started.png")
+            self.driver.save_screenshot("D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\subworkflow\\Subworkflow_started.png")
             time.sleep(3)
 
         except Exception as e:
@@ -856,7 +856,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + wf + "']/parent::*/preceding-sibling::div[@class='expand']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\wf_expanded.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\wf_expanded.png")
         except Exception as e:
             raise e
 
@@ -873,7 +873,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + swf + "']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\swf_selected.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\swf_selected.png")
         except Exception as e:
             raise e
 
@@ -895,7 +895,7 @@ class worklow_mg:
                 (By.XPATH,self.cmt_creation_page)))
             time.sleep(5)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\create_cmt_form.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\create_cmt_form.png")
 
         except Exception as e:
             raise e
@@ -919,7 +919,7 @@ class worklow_mg:
                 (By.XPATH, self.create_btn))).click()
             time.sleep(7)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\Comment_created.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\Comment_created.png")
         except Exception as e:
             raise e
 
@@ -937,7 +937,7 @@ class worklow_mg:
     #             print("Doc Status is updated")
     #         else:
     #             print("Doc Status is not updated to any of the expected statuses: {', '.join(expected_statuses)}")
-    #         self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\doc status.png")
+    #         self.driver.save_screenshot("D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\doc status.png")
     #         time.sleep(3)
     #
     #     except Exception as e:
@@ -952,7 +952,7 @@ class worklow_mg:
     #             print("SubWorkflow is started")
     #         else:
     #             print("SubWorkflow is not started")
-    #         self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\Subworkflow_started.png")
+    #         self.driver.save_screenshot("D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\subworkflow\\Subworkflow_started.png")
     #         time.sleep(3)
     #
     #     except Exception as e:
@@ -1008,7 +1008,7 @@ class import_comments:
                 checkbox.click()
                 time.sleep(5)
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\checkbox_selected.png")
+                    "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\checkbox_selected.png")
 
         except Exception as e:
             raise e
@@ -1021,7 +1021,7 @@ class import_comments:
                 (By.XPATH, self.save_btn))).click()
             time.sleep(1)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\downloading_file.png")
+                "D:\\Git//test-automation\\feature\\Code_merge\\Screenshots\\Comment_Creation\\downloading_file.png")
             # self.logger.info("*** File is downloaded ***")
         except Exception as e:
             raise e

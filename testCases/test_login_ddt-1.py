@@ -12,7 +12,7 @@ from utilities import XLUtils
 
 
 # web login details: server url + login credentials
-class Test_DDT_login:
+class Test_002_DDT_login:
     # create variables for login
     # below valriables values are coming from utilities.ini file
     # which is further coming from readProperties.py file
@@ -45,7 +45,7 @@ class Test_DDT_login:
         # here we'll pass two parameters to get the row count
         # 1st is path of the excel file which is in PATH Variable
         # 2nd is excel file name, "sheet1" in LoginDataSheet
-        self.rows = XLUtils.getRowCount(self.path, 'Sheet1')
+        self.rows = XLUtils.getRowCount(self.path, 'Users')
         print("Number of rows in Excel: ", self.rows)
         # the results of the test
         # this will contain only Pass/Fail
@@ -55,8 +55,8 @@ class Test_DDT_login:
         for r in range(2, self.rows+1):
 
             try:
-                self.user = XLUtils.readData(self.path, 'Sheet1', r, 1)
-                self.password = XLUtils.readData(self.path, 'Sheet1', r, 2)
+                self.user = XLUtils.readData(self.path, 'Users', r, 1)
+                self.password = XLUtils.readData(self.path, 'Users', r, 2)
 
                 self.lp.setUserName(self.user)
                 self.lp.setPassword(self.password)
@@ -65,23 +65,29 @@ class Test_DDT_login:
                 # capture of the homepage once logged in
                 # belo try is to check if the title is available
                 actual_title = self.driver.title
-                title_options = ["GENERIC Dashboard", "3DEXPERIENCE Platform", "PIC Generic"]
+                title_options = ["GENERIC Dashboard", "PIC Generic"]
+                # title_options = ["GENERIC Dashboard", "3DEXPERIENCE Platform", "PIC Generic"]
+
 
                 if any(x in actual_title for x in title_options):
+                # if actual_title.__contains__("GENERIC Dashboard"):
+                    self.driver.save_screenshot(
+                        ".\\Screenshots\\loginTest_screenshots\\" + self.user + ".png")
+                    self.logger.info(actual_title)
+                    self.logger.info("*** Login is passed by user - " + self.user)
                     time.sleep(3)
                     self.lp.clickProfile()
                     time.sleep(2)
                     self.lp.clickLogout()
                     time.sleep(5)
                 else:
-                    self.logger.info("*** Title not found**")
+                    self.logger.info(actual_title)
+                    self.logger.info("*** Login is Failed by user - " + self.user)
+                    self.driver.save_screenshot(
+                        ".Screenshots\\loginTest_screenshots\\" + self.user + ".png")
+                    time.sleep(5)
             except Exception as e:
                 self.logger.info("*** Logout Failed****")
                 raise e
 
-
-            # below check is to see if there is any FAILED test case within
-            # the lst_Status variable, then this condition will be displayed
-
-        self.logger.info("***** End of Login DDT Tests ****")
         self.logger.info("****** Completed Test_002_DDT_login ***")

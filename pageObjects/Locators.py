@@ -38,7 +38,7 @@ class LoginPage:
     def __init__(self, driver):
         self.driver = driver
 
-    logger = LogGen.loggen()
+    # # logger = LogGen.loggen()
 
     # Action Methods of LoginPage
     def setUserName(self, username):
@@ -110,7 +110,7 @@ class DashboardAndTabs:  # all dashboard tabs locators
     def __init__(self, driver):
         self.driver = driver
 
-    # logger = LogGen.loggen()
+    # # logger = LogGen.loggen()
 
     # Action Methods of DashboardTabs
     def dashboardselection(self, dashboard):
@@ -119,7 +119,7 @@ class DashboardAndTabs:  # all dashboard tabs locators
                 (By.XPATH, "//span[@class='topbar-app-name']")))
             WebDriverWait(self.driver, 300).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, "//span[contains(@class,'topbar-app-name') and text()='" + dashboard + "']")))
-            # self.logger.info("** Dashboard is selected **")
+            # # self.logger.info("** Dashboard is selected **")
         except NoSuchElementException:
             try:
                 # click on Dashboards and cockpit list menu
@@ -127,18 +127,18 @@ class DashboardAndTabs:  # all dashboard tabs locators
                     (
                         By.XPATH,
                         "//span[@class='wp-panel-button fonticon fonticon-menu new-dashboard-menu-open-btn inactive']"))).click()
-                # self.logger.info("** clicked on Dashboard and cockpit list menu **")
+                # # self.logger.info("** clicked on Dashboard and cockpit list menu **")
                 try:
                     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                         (By.XPATH,
                          "//div[@class='dashboard-menu-list-item-text']/p[text()='" + dashboard + "']"))).click()
-                    # self.logger.info("** clicked on Dashboard **")
+                    # # self.logger.info("** clicked on Dashboard **")
 
                 except Exception as e:
-                    # self.logger.info("** Fail to click on Dashboard **")
+                    # # self.logger.info("** Fail to click on Dashboard **")
                     raise e
             except Exception as e:
-                # self.logger.info("** Fail **")
+                # # self.logger.info("** Fail **")
                 raise e
 
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
@@ -187,11 +187,11 @@ class DashboardAndTabs:  # all dashboard tabs locators
                 (By.XPATH, self.maximize_xpath))))
             maximize.click()
             time.sleep(2)
-            # self.logger.info("** widget is maximized **")
+            # # self.logger.info("** widget is maximized **")
         except:
             WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.restore_xpath)))
-            # self.logger.info("** widget is already maximized **")
+            # # self.logger.info("** widget is already maximized **")
             WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
                  "//div[contains(@class, 'moduleWrapper clearfix ifwe-tabview')]//div[@class='wp-tabview-panel']//child::div[contains(@class,'moduleHeader__title') and text()='" + widget_name + "']//following-sibling::div//child::span[@class='widget-menu-icon ifwe-action-icon fonticon fonticon-down-open clickable active']"))).click()
@@ -209,8 +209,8 @@ class DashboardAndTabs:  # all dashboard tabs locators
 
 class documentRegisterAndWorkflow:  # all document register and workflow creation locators
 
-    # iframeNMDocumentCntrl_xpath = "//div[@id='7zAw5w30gCwH0QgEjm01']//iframe[@id='frame-9sMywGd0g06qZr2-U046']"
-    iframeNMDocumentCntrl_xpath = "//iframe[contains(@id,'frame-9sMywGd0g06qZr2-U01G')]"
+    iframeNMDocumentCntrl_xpath = "//div[@id='7zAw5w30gCwH0QgEjm01']//iframe[@id='frame-9sMywGd0g06qZr2-U046']"
+    # iframeNMDocumentCntrl_xpath = "//iframe[contains(@id,'frame-9sMywGd0g06qZr2-U055')]"
     tabDocumentUpload_xpath = "//a[contains(.,'Document Upload')]"
     tabTemporaryDocument_xpath = "//a[contains(.,'Temporary Document')]"
     tabRegisteredDocument_xpath = "//a[contains(.,'Registered Document')]"
@@ -250,7 +250,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
     def __init__(self, driver):
         self.driver = driver
 
-    # logger = LogGen.loggen()
+    # # logger = LogGen.loggen()
 
     def navigate_to_tab_document_upload(self):
         '''
@@ -298,12 +298,14 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                              if os.path.isfile(os.path.join(folder_path, f)))
 
             # Find the file input field
-            file_input = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+            file_input = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.select_files_xpath)))
+            print(f"{folder_path}")
 
             # Iterate over file paths and send each one individually
             for path in file_paths:
                 file_input.send_keys(path + " ")
+                time.sleep(10)
                 # clear the file input filed
                 WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH, self.clear_file_path))).click()
@@ -337,7 +339,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                 regDoc = WebDriverWait(self.driver, 50).until(expected_conditions.presence_of_element_located(
                     (By.XPATH, "//a[contains(@href, '#') and text() = '" + docname + "']")))
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\docregistered.png")
+                    ".\\Screenshots\\DocReg_screenshots\\docregistered.png")
                 docno = regDoc.text
                 if regDoc.is_displayed():
                     print(f"'{docno}' is displayed")
@@ -347,7 +349,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                     print(f"'{docno}' is not displayed")
                     # assert docno == expected_docno, f"Expected text '{expected_docno}' but found '{docno}'"
                     self.driver.save_screenshot(
-                        "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\DocReg_screenshots\\docNotRegistered.png")
+                        ".\\Screenshots\\DocReg_screenshots\\docNotRegistered.png")
                     assert False
 
         except Exception as e:
@@ -450,15 +452,15 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
             # Locate the all rows in document table
             rows = WebDriverWait(self.driver, 50).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, "//div[@id='regDocTable']//table/tr")))
-            # self.logger.info("table is identified")
+            # # self.logger.info("table is identified")
 
             checkbox = (rows.find_element(By.XPATH,
                                           "//a[contains(@href, '#') and text() = '" + docname + "']/../..//div[@class='v-input--selection-controls__ripple']"))
-            # self.logger.info("Check box is identified")
+            # # self.logger.info("Check box is identified")
             # Click on Checkbox
             ActionChains(self.driver).scroll_to_element(checkbox).perform()
             checkbox.click()
-            # self.logger.info("Check box is selected")
+            # # self.logger.info("Check box is selected")
 
         except Exception as e:
             raise e
@@ -477,11 +479,11 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
             # select route template
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.wf_template_search))).click()
-            # self.logger.info("Clicked on search")
+            # # self.logger.info("Clicked on search")
             self.driver.switch_to.default_content()
             WebDriverWait(self.driver, 100).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.route_tmp_page)))
-            # self.logger.info("Route template page opened")
+            # # self.logger.info("Route template page opened")
             try:
                 template = WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH,
@@ -492,7 +494,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                     (By.XPATH,
                      "//div[@class='wux-controls-responsivetileview-maincontent']//span[@class='searchItemSpan search_item_in_apps' and text() = '" + wf_route_template + "']")))
                 template.click()
-            # self.logger.info("Route template selected")
+            # # self.logger.info("Route template selected")
 
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.bt_route_ok))).click()
@@ -530,7 +532,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
             # Store the WF name in excel input
             XLUtils.writeData(path, "Inputs", 2, 14, wfname)
 
-            # self.logger.info("Created WF is displayed" + wfname)
+            # # self.logger.info("Created WF is displayed" + wfname)
             ActionChains(self.driver).double_click(wf).perform()
             try:
                 lnk_start = WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
@@ -538,7 +540,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
                 time.sleep(3)
                 lnk_start.click()
                 time.sleep(10)
-                # self.logger.info("Created WF is started")
+                # # self.logger.info("Created WF is started")
 
             except Exception as e:
                 raise e
@@ -555,7 +557,7 @@ class documentRegisterAndWorkflow:  # all document register and workflow creatio
             else:
                 print("Workflow is not started")
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\workflow\\workflow_started.png")
+                ".\\Screenshots\\workflow\\workflow_started.png")
             time.sleep(3)
 
         except Exception as e:
@@ -618,7 +620,7 @@ class worklow_mg:
     def __init__(self, driver):
         self.driver = driver
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     def select_WF_filter(self, filter1, filter2):
         '''
@@ -642,19 +644,19 @@ class worklow_mg:
                 # filter1 is already selected
                 WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located(
                     (By.XPATH, "//div[@attr-selected='true' and @attr='filter' and text()='" + filter1 + "']")))
-                # self.logger.info("** Filter1 is already selected **")
+                # # self.logger.info("** Filter1 is already selected **")
                 try:
                     # filter2 is already selected - select filter2
                     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                         (By.XPATH,
                          "//div[@attr-selected='true' and @attr='expand' and text()='" + filter2 + "']"))).click()
-                    # self.logger.info("** filter2 is already selected select filter2**")
+                    # # self.logger.info("** filter2 is already selected select filter2**")
                 except:
                     # filter2 is not selected - select filter2
                     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                         (By.XPATH,
                          "//div[@attr-selected='false' and @attr='expand' and text()='" + filter2 + "']"))).click()
-                    # self.logger.info("** filter2 is not selected - select filter2 **")
+                    # # self.logger.info("** filter2 is not selected - select filter2 **")
                     time.sleep(10)
 
             except:
@@ -662,23 +664,23 @@ class worklow_mg:
                 filter1 = WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH, "//div[@attr-selected='false' and @attr='filter' and text()='" + filter1 + "']")))
                 filter1.click()
-                # self.logger.info("** filter1 is not selected - select filter1 **")
+                # # self.logger.info("** filter1 is not selected - select filter1 **")
                 # select filter
                 filterbt2 = WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH, self.filter_xpath)))
                 self.driver.execute_script("arguments[0].click();", filterbt2)
-                # self.logger.info("** Filter1 is opened **")
+                # # self.logger.info("** Filter1 is opened **")
                 time.sleep(3)
                 try:
                     # filter2 is already selected - select filter2
                     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                         (By.XPATH, self.filter2_selected))).click()
-                    # self.logger.info("** filter2 is already selected - select filter2 **")
+                    # # self.logger.info("** filter2 is already selected - select filter2 **")
                 except:
                     # filter2 is not selected - select filter2
                     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                         (By.XPATH, self.filter2_notselected))).click()
-                    # self.logger.info("** filter2 is not selected - select filter2 **")
+                    # # self.logger.info("** filter2 is not selected - select filter2 **")
         except Exception as e:
             raise e
 
@@ -695,7 +697,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + wf + "']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\wf_selected.png")
+                ".\\Screenshots\\subworkflow\\wf_selected.png")
         except Exception as e:
             raise e
 
@@ -715,7 +717,7 @@ class worklow_mg:
                 (By.XPATH, self.swf_creation_page)))
             time.sleep(5)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\create_subworkflow_form.png")
+                ".\\Screenshots\\subworkflow\\create_subworkflow_form.png")
 
         except Exception as e:
             raise e
@@ -725,11 +727,11 @@ class worklow_mg:
             # select route template
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.swf_template_search))).click()
-            # self.logger.info("Clicked on search")
+            # # self.logger.info("Clicked on search")
             self.driver.switch_to.default_content()
             WebDriverWait(self.driver, 100).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.route_tmp_page)))
-            # self.logger.info("Route template page opened")
+            # # self.logger.info("Route template page opened")
             try:
                 template = WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH,
@@ -741,7 +743,7 @@ class worklow_mg:
                      "//div[@class='wux-controls-responsivetileview-maincontent']//span[@class='searchItemSpan search_item_in_apps' and text() = '" + swf_route_template + "']")))
                 template.click()
 
-            # self.logger.info("Route template selected")
+            # # self.logger.info("Route template selected")
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.bt_ok))).click()
         except Exception as e:
@@ -764,20 +766,20 @@ class worklow_mg:
 
             actions = ActionChains(self.driver)
             for doc in contents:
-                # self.logger.info("** control key pressed **")
+                # # self.logger.info("** control key pressed **")
                 content = WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                     (By.XPATH,
                      "//span[@class='searchItemSpan' and text() = '" + doc + "']/ancestor::div[@class='wux-controls-responsivetileview-maincontent']")))
                 content.click()
-                # self.logger.info("** doc selected **")
+                # # self.logger.info("** doc selected **")
                 time.sleep(2)
                 # Press and Hold the Ctrl key
                 actions.key_down(Keys.CONTROL)
             # Release control key
             actions.key_up(Keys.CONTROL)
-            # self.logger.info("** control key released **")
+            # # self.logger.info("** control key released **")
             actions.perform()
-            # self.logger.info("content selected")
+            # # self.logger.info("content selected")
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.bt_ok))).click()
 
@@ -820,11 +822,11 @@ class worklow_mg:
             actions.key_up('a')
             # Release the Ctrl key
             actions.key_up(Keys.CONTROL)
-            # self.logger.info("** control key released **")
+            # # self.logger.info("** control key released **")
             actions.perform()
-            # self.logger.info("** action performed **")
+            # # self.logger.info("** action performed **")
             time.sleep(2)
-            # self.logger.info("content selected")
+            # # self.logger.info("content selected")
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.bt_ok))).click()
 
@@ -850,7 +852,7 @@ class worklow_mg:
                 (By.XPATH, self.create_btn))).click()
             time.sleep(3)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\swf_created.png")
+                ".\\Screenshots\\subworkflow\\swf_created.png")
         except Exception as e:
             raise e
 
@@ -876,7 +878,7 @@ class worklow_mg:
                 time.sleep(3)
                 lnk_start.click()
                 time.sleep(10)
-                # self.logger.info("Created SWF is started")
+                # # self.logger.info("Created SWF is started")
 
             except Exception as e:
                 raise e
@@ -893,7 +895,7 @@ class worklow_mg:
             else:
                 print("SubWorkflow is not started")
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\subworkflow\\Subworkflow_started.png")
+                ".\\Screenshots\\subworkflow\\Subworkflow_started.png")
             time.sleep(3)
 
         except Exception as e:
@@ -914,7 +916,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + wf + "']/parent::*/preceding-sibling::div[@class='expand']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\wf_expanded.png")
+                ".\\Screenshots\\Comment_Creation\\wf_expanded.png")
         except Exception as e:
             raise e
 
@@ -931,7 +933,7 @@ class worklow_mg:
                 (By.XPATH, "//div[@title='" + swf + "']"))).click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\swf_selected.png")
+                ".\\Screenshots\\Comment_Creation\\swf_selected.png")
         except Exception as e:
             raise e
 
@@ -954,7 +956,7 @@ class worklow_mg:
                 (By.XPATH, self.cmt_creation_page)))
             time.sleep(5)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\create_cmt_form.png")
+                ".\\Screenshots\\Comment_Creation\\create_cmt_form.png")
 
         except Exception as e:
             raise e
@@ -979,7 +981,7 @@ class worklow_mg:
                 (By.XPATH, self.create_btn))).click()
             time.sleep(7)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\Comment_created.png")
+                ".\\Screenshots\\Comment_Creation\\Comment_created.png")
         except Exception as e:
             raise e
 
@@ -997,7 +999,7 @@ class worklow_mg:
     #             print("Doc Status is updated")
     #         else:
     #             print("Doc Status is not updated to any of the expected statuses: {', '.join(expected_statuses)}")
-    #         self.driver.save_screenshot("D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\doc status.png")
+    #         self.driver.save_screenshot(".\\Screenshots\\Comment_Creation\\doc status.png")
     #         time.sleep(3)
     #
     #     except Exception as e:
@@ -1018,7 +1020,7 @@ class worklow_mg:
             frame1 = WebDriverWait(self.driver, 100).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.iframe_crs_widget)))
             self.driver.switch_to.frame(frame1)
-            # self.logger.info("** navigated to CRS Management widget **")
+            # # self.logger.info("** navigated to CRS Management widget **")
 
         except Exception as e:
             raise e
@@ -1032,7 +1034,7 @@ class worklow_mg:
                 (By.XPATH, "//div[contains(@class,'description wrap') and contains(text(), '" + desc + "')]")))
 
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\comment_created.png")
+                ".\\Screenshots\\Comment_Creation\\comment_created.png")
             # Assertion for the presence of the description
             assert descrip.is_displayed(), f"Description '{desc}' is not displayed"
         except Exception as e:
@@ -1048,10 +1050,10 @@ class worklow_mg:
             WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, "//div[contains(@class,'description wrap') and contains(text(), '" + desc + "')]")))
             ActionChains(self.driver).double_click(comment1).perform()
-            # self.logger.info("*** double clicked on desired comment ***")
+            # # self.logger.info("*** double clicked on desired comment ***")
             WebDriverWait(self.driver, 100).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, "//div[@class='popup']")))
-            # self.logger.info("*** comment form is opened ***")
+            # # self.logger.info("*** comment form is opened ***")
             description = WebDriverWait(self.driver, 100).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, "//textarea[@class='form-control' and @name='description']")))
             description.clear()
@@ -1060,7 +1062,7 @@ class worklow_mg:
                 (By.XPATH, "//button[@type='button' and text()='Update']"))).click()
             time.sleep(6)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\comment_updated.png")
+                ".\\Screenshots\\Comment_Creation\\comment_updated.png")
         except Exception as e:
             raise e
 
@@ -1081,14 +1083,14 @@ class worklow_mg:
 
             # Release the control key
             ActionChains(self.driver).key_up(Keys.CONTROL).perform()
-            # self.logger.info("*** Desired comments are selected***")
+            # # self.logger.info("*** Desired comments are selected***")
 
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.bulk_modify_btn))).click()
 
             WebDriverWait(self.driver, 40).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.modify_form)))
-            # self.logger.info("*** comment form is opened ***")
+            # # self.logger.info("*** comment form is opened ***")
             try:
                 # select attribute path
                 select_element = WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
@@ -1101,7 +1103,7 @@ class worklow_mg:
                     (By.XPATH,
                      "//span[contains(text(), 'Select Attribute:')]/following-sibling::select[@class='form-control']/option[text()='" + attribute + "']"))).click()
 
-                # self.logger.info("*** Desired attribute selected ***")
+                # # self.logger.info("*** Desired attribute selected ***")
 
                 select = Select(select_element)
                 selected_option_text = select.first_selected_option.text
@@ -1166,7 +1168,7 @@ class worklow_mg:
 
             # Release the control key
             ActionChains(self.driver).key_up(Keys.CONTROL).perform()
-            # self.logger.info("*** Desired comments are selected***")
+            # # self.logger.info("*** Desired comments are selected***")
 
             # Click on Remove button
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
@@ -1174,7 +1176,7 @@ class worklow_mg:
 
             WebDriverWait(self.driver, 40).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.remove_confirm_form)))
-            # self.logger.info("*** remove form is opened ***")
+            # # self.logger.info("*** remove form is opened ***")
             try:
                 # Click on AGREE button
                 select_element = WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
@@ -1187,7 +1189,7 @@ class worklow_mg:
                         (By.XPATH, self.remove_comment_success_msg)))
 
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Modification\\comment_removed.png")
+                    ".\\Screenshots\\Comment_Modification\\comment_removed.png")
 
                 # Assert that the success message is displayed
                 assert remove_comment_success_message.is_displayed(), f"Success message is not displayed"
@@ -1212,7 +1214,7 @@ class worklow_mg:
             filter_value.click()
             time.sleep(10)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Modification\\Filtered_Comments.png")
+                ".\\Screenshots\\Comment_Modification\\Filtered_Comments.png")
 
         except Exception as e:
             raise e
@@ -1226,12 +1228,12 @@ class worklow_mg:
             frame1 = WebDriverWait(self.driver, 100).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.iframe_wf_widget)))
             self.driver.switch_to.frame(frame1)
-            self.logger.info("** entered into frame**")
+            # self.logger.info("** entered into frame**")
 
             # wait till workflow page loaded
             WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.load_wf_page)))
-            self.logger.info("** widget loaded**")
+            # self.logger.info("** widget loaded**")
             # export workflows to excel icon element
             WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.export_wf_icon))).click()
@@ -1250,7 +1252,7 @@ class worklow_mg:
                 (By.XPATH, self.export_crs_icon)))
             time.sleep(3)
             export_CRS.click()
-            self.logger.info("** clicked on export CRS**")
+            # self.logger.info("** clicked on export CRS**")
             crs_exported_success_message = WebDriverWait(self.driver, 40).until(
                 expected_conditions.visibility_of_element_located(
                     (By.XPATH, self.crs_export_success_msg)))
@@ -1258,11 +1260,11 @@ class worklow_mg:
             # Assert that the success message is displayed
             assert crs_exported_success_message.is_displayed(), "Success message not displayed after exporting CRS"
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\workflow\\CRS_exported.png")
+                ".\\Screenshots\\workflow\\CRS_exported.png")
             time.sleep(3)
         except Exception as e:
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\workflow\\CRS_export_failure.png")
+                ".\\Screenshots\\workflow\\CRS_export_failure.png")
             raise e
 
     def click_on_customize_column_filter(self):
@@ -1273,7 +1275,7 @@ class worklow_mg:
             time.sleep(2)
             WebDriverWait(self.driver, 100).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.cust_column_filter_icon))).click()
-            self.logger.info("** clicked on customize column filter **")
+            # self.logger.info("** clicked on customize column filter **")
 
         except Exception as e:
             raise e
@@ -1318,7 +1320,7 @@ class worklow_mg:
 
             time.sleep(5)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\workflow\\column_customized.png")
+                ".\\Screenshots\\workflow\\column_customized.png")
 
         except Exception as e:
             raise e
@@ -1331,7 +1333,7 @@ class worklow_mg:
                  "//tr[@type='Inbox Task']//div[@class='tddivcommon wrap' and @title='" + assignee + "']/ancestor::tr/following-sibling::tr[contains(@class,'impgrid')]//div[@value='UR']")))
 
             print("** Can not complete task as one of the document has UR status **")
-            self.logger.info("** Can not complete task as one of the document has UR status **")
+            # self.logger.info("** Can not complete task as one of the document has UR status **")
 
         except:
             print("all documents has other status than UR ")
@@ -1345,12 +1347,12 @@ class worklow_mg:
                         (By.XPATH, self.task_completion_success_msg)))
 
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Task_completed.png")
+                    ".\\Screenshots\\Task_completed.png")
 
                 # Assert that the success message is displayed
                 assert task_completion_success_message.is_displayed(), f"Success message is not displayed"
 
-                self.logger.info("** Task Completed **")
+                # self.logger.info("** Task Completed **")
             except Exception as e:
                 raise e
 
@@ -1373,15 +1375,15 @@ class import_comments:
     def __init__(self, driver):
         self.driver = driver
 
-    # logger = LogGen.loggen()
+    # # logger = LogGen.loggen()
     def click_on_export_CRS_Template(self):
         try:
             WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.export_crs_template))).click()
-            # self.logger.info("*** Clicked on export CRS template button ***")
+            # # self.logger.info("*** Clicked on export CRS template button ***")
             WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.select_review_entity_wdw)))
-            # self.logger.info("*** select review entity window is opened ***")
+            # # self.logger.info("*** select review entity window is opened ***")
             ch_item = WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.choose_items)))
             ch_item.click()
@@ -1406,7 +1408,7 @@ class import_comments:
                 checkbox.click()
                 time.sleep(5)
                 self.driver.save_screenshot(
-                    "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\checkbox_selected.png")
+                    ".\\Screenshots\\Comment_Creation\\checkbox_selected.png")
 
         except Exception as e:
             raise e
@@ -1419,8 +1421,8 @@ class import_comments:
                 (By.XPATH, self.save_btn))).click()
             time.sleep(1)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\downloading_file.png")
-            # self.logger.info("*** File is downloaded ***")
+                ".\\Screenshots\\Comment_Creation\\downloading_file.png")
+            # # self.logger.info("*** File is downloaded ***")
         except Exception as e:
             raise e
 
@@ -1428,10 +1430,10 @@ class import_comments:
         try:
             WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.import_comments))).click()
-            # self.logger.info("*** Clicked on Import comments button ***")
+            # # self.logger.info("*** Clicked on Import comments button ***")
             WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.import_comment_popup)))
-            # self.logger.info("*** Import comments popup opened ***")
+            # # self.logger.info("*** Import comments popup opened ***")
         except Exception as e:
             raise e
 
@@ -1439,9 +1441,9 @@ class import_comments:
         try:
             file_input = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.browse_crs_file)))
-            # self.logger.info("*** Clicked on browse ***")
+            # # self.logger.info("*** Clicked on browse ***")
             file_input.send_keys(crs_file_path)
-            # self.logger.info("*** CRS file is selected ***")
+            # # self.logger.info("*** CRS file is selected ***")
         except Exception as e:
             raise e
 
@@ -1449,9 +1451,9 @@ class import_comments:
         try:
             pdf_input = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.browse_pdf_file)))
-            # self.logger.info("*** Clicked on browse annotations ***")
+            # # self.logger.info("*** Clicked on browse annotations ***")
             pdf_input.send_keys(pdf_file_path)
-            # self.logger.info("*** annotation file is selected ***")
+            # # self.logger.info("*** annotation file is selected ***")
         except Exception as e:
             raise e
 
@@ -1459,10 +1461,10 @@ class import_comments:
         try:
             WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.import_save_btn))).click()
-            # self.logger.info("*** Clicked on Import save button ***")
+            # # self.logger.info("*** Clicked on Import save button ***")
             time.sleep(15)
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\importing_comments.png")
+                ".\\Screenshots\\Comment_Creation\\importing_comments.png")
         except Exception as e:
             raise e
 
@@ -1477,13 +1479,13 @@ class import_comments:
             actions.move_to_element(CRS_icon).perform()
             self.driver.execute_script("arguments[0].scrollIntoView();", CRS_icon)
             time.sleep(1)  # Optional: Wait for smooth scrolling effect
-            # self.logger.info("*** Clicked on Import save button ***")
+            # # self.logger.info("*** Clicked on Import save button ***")
             time.sleep(15)
             # Assertion for the presence of CRS icon
             assert CRS_icon.is_displayed(), "CRS icon is not displayed"
             self.driver.save_screenshot(
-                "D:\\Git//test-automation\\3DX_pythonProject\\Screenshots\\Comment_Creation\\comments_imported.png")
-            # self.logger.info("CRS icon is displayed successfully")
+                ".\\Screenshots\\Comment_Creation\\comments_imported.png")
+            # # self.logger.info("CRS icon is displayed successfully")
         except Exception as e:
             raise e
 
@@ -1511,7 +1513,7 @@ class regDocument_properties1:
         self.lp = LoginPage(driver)
         self.driver = driver
 
-    # logger = LogGen.loggen()
+    # # logger = LogGen.loggen()
 
     def reg_rows_filter(self):
 
@@ -1614,7 +1616,7 @@ class regDocument_properties:
         self.lp = LoginPage(driver)
         self.driver = driver
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     def reg_rows_filter(self):
 
@@ -1724,11 +1726,11 @@ class regDocument_properties:
     #         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
     #             (By.XPATH,
     #              "//div[contains(@class, 'moduleWrapper clearfix ifwe-tabview')]//div[@class='wp-tabview-panel']//child::div[contains(@class,'moduleHeader__title') and text()='" + widget_name + "']//following-sibling::div//child::span[@class='widget-menu-icon ifwe-action-icon fonticon fonticon-down-open clickable active']"))).click()
-    #         self.logger.info("** widget is already maximized **")
+    #         # self.logger.info("** widget is already maximized **")
     #         time.sleep(5)
     #     except Exception as e:
     #         self.lp.maximize_widget()
-    #         self.logger.info("** widget is maximized **")
+    #         # self.logger.info("** widget is maximized **")
     #         time.sleep(5)
     #         raise e
 
@@ -1801,7 +1803,7 @@ class Create_Transmittal:
         self.driver = driver
         self.dp = regDocument_properties(self.driver)
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     def create_transmittal_button(self):
         try:
@@ -1856,7 +1858,7 @@ class Create_Transmittal:
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
                  "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='hsharma']"))).click()
-            self.logger.info("**** Person selected ")
+            # self.logger.info("**** Person selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
             time.sleep(5)
@@ -1877,7 +1879,7 @@ class Create_Transmittal:
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
                  "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + value + "']"))).click()
-            self.logger.info("**** Template selected ")
+            # self.logger.info("**** Template selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
             time.sleep(5)
@@ -1935,18 +1937,18 @@ class Create_Transmittal:
             frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.iframeNMDocumentCntrl_xpath)))
             self.driver.switch_to.frame(frame1)
-            self.logger.info("in frame 1")
+            # self.logger.info("in frame 1")
             message_field = WebDriverWait(self.driver, 2000).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_mesg_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", message_field)
             frame2 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, "//div[@class='cke_contents cke_reset']//iframe[@class='cke_wysiwyg_frame cke_reset']")))
             self.driver.switch_to.frame(frame2)
-            self.logger.info("in frame 2")
+            # self.logger.info("in frame 2")
             message = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH,
                  "//html[@dir='ltr']//body[@class='cke_editable cke_editable_themed cke_contents_ltr cke_show_borders']")))
-            self.logger.info("in Message field")
+            # self.logger.info("in Message field")
             message.send_keys("Test Message 2 01 March")
             time.sleep(10)
         except Exception as e:
@@ -2119,9 +2121,9 @@ class Create_Transmittal:
             WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.disc_display_list)))
 
-            self.logger.info("discipline value is %s", discipline_value)
+            # self.logger.info("discipline value is %s", discipline_value)
             discipline = str(discipline_value).strip()  # Ensure discipline_value is converted to a string
-            self.logger.info("discipline value is %s", discipline)
+            # self.logger.info("discipline value is %s", discipline)
             discipline_link_xpath = "//div[@class='v-list-item__title' and text()='" + discipline + "']"
             discipline_link_element = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, discipline_link_xpath)))
@@ -2171,7 +2173,7 @@ class Create_Transmittal:
 
             success_msg = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, self.tra_success_msg)))
-            # self.logger.info(" success msg located", success_msg)
+            # # self.logger.info(" success msg located", success_msg)
             time.sleep(3)
 
             self.dp.check_doc_properties(docTitle)
@@ -2264,7 +2266,7 @@ class transmittal_reply:
     def __init__(self, driver):
         self.driver = driver
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     # Selecting and validating the selected filters
     def selecting_sent_filters(self):
@@ -2281,7 +2283,7 @@ class transmittal_reply:
             out_filter = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.filter_value_outstanding)))
 
-            # self.logger.info(" html info is %s", out_filter)
+            # # self.logger.info(" html info is %s", out_filter)
 
             # Check if the filter element is selected (active)
             out_filter_select = out_filter.get_attribute("attr-selected")
@@ -2391,7 +2393,7 @@ class transmittal_reply:
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
                  "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + value + "']"))).click()
-            self.logger.info("**** Template selected ")
+            # self.logger.info("**** Template selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
             time.sleep(5)
@@ -2414,7 +2416,7 @@ class transmittal_reply:
 
             # success_msg = WebDriverWait(self.driver, 10).until(
             #     EC.presence_of_element_located((By.XPATH, self.tra_success_msg)))
-            # # self.logger.info(" success msg located", success_msg)
+            # # # self.logger.info(" success msg located", success_msg)
             # time.sleep(3)
             #
             # self.dp.check_doc_properties(docTitle)
@@ -2443,7 +2445,7 @@ class transmittal_reply:
             frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.mail_management_iframe_xpath)))
             self.driver.switch_to.frame(frame1)
-            self.logger.info("in frame 1")
+            # self.logger.info("in frame 1")
 
             message_field = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_mesg_field)))
@@ -2454,11 +2456,11 @@ class transmittal_reply:
                 (By.XPATH, "//div[@class='cke_contents cke_reset']//iframe[@class='cke_wysiwyg_frame cke_reset']")))
             self.driver.switch_to.frame(frame2)
 
-            self.logger.info("in frame 2")
+            # self.logger.info("in frame 2")
             message = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH,
                  "//html[@dir='ltr']//body[@class='cke_editable cke_editable_themed cke_contents_ltr cke_show_borders']")))
-            self.logger.info("in Message field")
+            # self.logger.info("in Message field")
             # message.send_keys("Auto Replied")
             message.send_keys(value)
             time.sleep(10)
@@ -2491,7 +2493,7 @@ class transmittal_reply:
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
                  "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + username + "']"))).click()
-            self.logger.info("**** forward Person selected ")
+            # self.logger.info("**** forward Person selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
             time.sleep(5)
@@ -2530,9 +2532,9 @@ class transmittal_reply:
             WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
                 (By.XPATH, self.disc_display_list)))
 
-            self.logger.info("discipline value is %s", discipline_value)
+            # self.logger.info("discipline value is %s", discipline_value)
             discipline = str(discipline_value).strip()  # Ensure discipline_value is converted to a string
-            self.logger.info("discipline value is %s", discipline)
+            # self.logger.info("discipline value is %s", discipline)
             discipline_link_xpath = "//div[@class='v-list-item__title' and text()='" + discipline + "']"
             discipline_link_element = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, discipline_link_xpath)))
@@ -2573,7 +2575,7 @@ class transmittal_reply:
             out_filter = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.filter_value_outstanding)))
 
-            # self.logger.info(" html info is %s", out_filter)
+            # # self.logger.info(" html info is %s", out_filter)
 
             # Check if the filter element is selected (active)
             out_filter_select = out_filter.get_attribute("attr-selected")
@@ -2649,7 +2651,7 @@ class placeholder_creation:
     def __init__(self, driver):
         self.driver = driver
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     def click_PH_button(self):
         try:
@@ -2694,7 +2696,7 @@ class placeholder_creation:
 
             # Check if docType starts with "MDL" or "DWG" to decide whether to run the serial number code
             if docType == 'MDL - BIM Model' or docType == 'DRG - Drawing':
-                self.logger.info("inside the docType code")
+                # self.logger.info("inside the docType code")
                 self.ph_serial(number)  # Run the serial number code
 
         except Exception as e:
@@ -3180,7 +3182,7 @@ class iframes:  # all iframes locators
         self.driver = driver
         self.dp = regDocument_properties(self.driver)
 
-    logger = LogGen.loggen()
+    # logger = LogGen.loggen()
 
     def navigate_to_tab_document_upload(self):
 
@@ -3289,7 +3291,7 @@ class iframes:  # all iframes locators
             frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
                 (By.XPATH, self.iframe_Route_Management)))
             self.driver.switch_to.default_content(frame1)
-            self.logger.info("*** frame swicthed ***")
+            # self.logger.info"*** frame swicthed ***")
             route_element = WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.route_selection))).click()
             ActionChains(self.driver).double_click(route_element).perform()

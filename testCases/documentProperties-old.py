@@ -16,7 +16,7 @@ class Test_006_Dashboard_selection:
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
     widget_name = 'Document Register'
-    path = "D://Git//test-automation//3DX_pythonProject//TestData//DataManager.xlsx"
+    path = "D://Git//test-automation//feature\\Code_merge//TestData//DataManager.xlsx"
     #docTitles = "02-ACM-ARC-MDL-020101"
 
     logger = LogGen.loggen()
