@@ -56,7 +56,7 @@ class Test_001_Login:
         act_title = self.driver.title
         print(act_title)
         time.sleep(5)
-        if act_title == "3DEXPERIENCE Platform":
+        if act_title.__contains__("GENERIC Dashboard"):
             assert True
             self.logger.info("********** Login test is passed ********")
             self.driver.close()

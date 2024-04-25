@@ -1608,7 +1608,7 @@ class regDocument_properties:
     dev_rev_panel_close = "//button[@class='v-btn v-btn--text theme--light v-size--default secondary--text']//span[@class='v-btn__content' and text()='Close']"
     iframeNMDocumentCntrl_xpath = "//div[@id='7zAw5w30gCwH0QgEjm01']//iframe[@id='frame-9sMywGd0g06qZr2-U046']"
     get_tra_success_msg = "//div[contains(@class, 'alert-success') and contains(text(), 'Transmittal Created Successfully')]"
-    get_tra_no_within_table = "//thead[@class='v-data-table-header']//th[starts-with(@aria-label,'Transmittal No.')]/../../..//td[@class='text-start' and contains(text(), '-')]"
+    get_tra_no_within_table = "//thead[@class='v-data-table-header']//th[@class='text-start sortable']/../../..//td[@class='text-start' and contains(text(), '-')]"
 
     # document revision click - end
 
@@ -1669,7 +1669,7 @@ class regDocument_properties:
             tra_no_text = tra_no_from_table.text
             print("tra no is ", tra_no_text)
 
-            file_path = "D://Git//test-automation//feature//Code_merge//TestData//DataManager.xlsx"
+            file_path = ".//TestData//DataManager.xlsx"
 
             # Load the existing workbook
             workbook = openpyxl.load_workbook(file_path)
@@ -1748,8 +1748,8 @@ class Create_Transmittal:
 
     # transmittal START -----------------
     create_transmittal_xpath = "//div[@style='transition-delay: 0.1s;']//div[@class='v-responsive__content']"
-    tra_type_gcd = "//select[@name='IMP_MailType']//option[@value='GCD']"
-    tra_type_trans = "//select[@name='IMP_MailType']//option[@value='TRA']"
+    # tra_type_gcd = "//select[@name='IMP_MailType']//option[@value='GCD']"
+    # tra_type_trans = "//select[@name='IMP_MailType']//option[@value='TRA']"
     # tra_type_rfi = "//select[@name='IMP_MailType']//option[@value='RFI']"
     tra_to_list = "//div[@linked='IMP_ToList']"
     # tra_to_person_selection = "//span[@class='searchItemSpan search_item_in_apps' and text()='Himanshu Sharma']/../../../../..//div[@class='wux-controls-responsivetileview-checkbox']"
@@ -1758,7 +1758,7 @@ class Create_Transmittal:
     tra_cc_list = "//div[@linked='IMP_CCList']"
     # tra_cc_person_selection = "//span[@class='searchItemSpan search_item_in_apps' and text()='Jayesh Panat']/../../../../..//div[@class='wux-controls-responsivetileview-checkbox']"
     tra_reason = "//select[@name='IMP_ReasonForIssue']"
-    tra_response = "//select[@name='IMP_MailResponseRequired']//option[@value='Yes']"
+    # tra_response = "//select[@name='IMP_MailResponseRequired']//option[@value='Yes']"
     tra_DatePicker = "//input[@id='calendar_IMP_MailResponseRequiredDate']"
     tra_subject = "//input[@name='IMP_Subject']"
     tra_category = "//select[@name='IMP_TRACategory']"
@@ -1781,15 +1781,19 @@ class Create_Transmittal:
     locate_category_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Transmittal Category']"
     locate_contract_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Contract']"
     locate_wo_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Work Order/Service Order']"
+    locate_reason_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Reason For Issue']"
     locate_discipline_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Discipline']"
     locate_ltr_ini_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Letter Initiator']"
     locate_ltr_adr_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Letter Addressee']"
     disc_display_list = "//div[@class='v-list v-select-list v-sheet theme--light v-list--dense theme--light' and @role='listbox']"
+    ltr_initiator_list = "//div[@class='v-menu__content theme--light menuable__content__active v-autocomplete__content']//div[@class='v-list v-select-list v-sheet theme--light v-list--dense theme--light' and @role='listbox']"
+    ltr_addressee_list = "//div[@class='v-menu__content theme--light menuable__content__active v-autocomplete__content']//div[@class='v-list v-select-list v-sheet theme--light v-list--dense theme--light' and @role='listbox']"
 
     # transmittal END ------------------
     # RFI START----------------------------------
     # rfi_assetcode_value = "//select[@name='IMP_Reg02_AssetCodeLevel6']//option[@value = '012110']"
-    locate_asset_code_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Asset Code(Level 6)']"
+    locate_asset_code_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Asset Code']"
+    locate_response_code_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Response Required']"
     # rfi_stage_value = "//select[@name='IMP_StageCode']//option[@value='02A']"
     locate_stage_field = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and text()='Stage']"
     # rfi_design_value = "//select[@name='IMP_RFIDesignRelated']//option[@value='Yes']"
@@ -1816,16 +1820,14 @@ class Create_Transmittal:
             raise e
 
     # Transmittal Type-General Correspondence -- START
-    def traType_gcd(self):
+    def traType_gcd(self, type):
         try:
             try:
                 # WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 #     (By.XPATH, self.tra_enterType))).send_keys(traType)
                 tra_selection = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
-                    (By.XPATH, self.tra_type_gcd)))
+                    (By.XPATH, "//select[@name='IMP_MailType']//option[@value='" + type + "']")))
                 tra_selection.click()
-                # dropdown_element = Select(tra_selection)
-                # dropdown_element.select_by_visible_text(traType)
             except:
                 pass
         except Exception as e:
@@ -1848,7 +1850,7 @@ class Create_Transmittal:
         except Exception as e:
             raise e
 
-    def tra_toUser(self):
+    def tra_toUser(self, user):
         try:
 
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
@@ -1857,7 +1859,7 @@ class Create_Transmittal:
             self.driver.switch_to.default_content()
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
-                 "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='hsharma']"))).click()
+                 "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + user + "']"))).click()
             # self.logger.info("**** Person selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
@@ -1865,7 +1867,7 @@ class Create_Transmittal:
         except Exception as e:
             raise e
 
-    def tra_ccUser(self, value):
+    def tra_ccUser(self, user):
         try:
             self.driver.switch_to.default_content()
             frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
@@ -1878,7 +1880,7 @@ class Create_Transmittal:
             self.driver.switch_to.default_content()
             WebDriverWait(self.driver, 20).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH,
-                 "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + value + "']"))).click()
+                 "//div[@class='wux-controls-abstract wux-controls-responsivetileview']//div[@class='wux-controls-responsivetileview-maincontent']//div[@class='wux-button-label-ellipsis-wrap wux-ui-is-rendered wux-controls-responsivetileview-description']//span[@class='searchItemSpan' and text()='" + user + "']"))).click()
             # self.logger.info("**** Template selected ")
             WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 (By.XPATH, self.tra_person_ok_button))).click()
@@ -1886,22 +1888,29 @@ class Create_Transmittal:
         except Exception as e:
             raise e
 
-    def traResponseRequired(self):
+    def traResponseRequired(self, value):
         try:
 
-            self.driver.switch_to.default_content()
+            # self.driver.switch_to.default_content()
             # use code when creating the transmittal - START
             # frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
             #     (By.XPATH, self.iframeNMDocumentCntrl_xpath)))
             # self.driver.switch_to.frame(frame1)
             # use code when creating the transmittal - END
 
-            frame_mail = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
-                (By.XPATH, self.mail_management_iframe_xpath)))
-            self.driver.switch_to.frame(frame_mail)
+            # frame_mail = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+            #     (By.XPATH, self.mail_management_iframe_xpath)))
+            # self.driver.switch_to.frame(frame_mail)
 
-            WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
-                (By.XPATH, self.tra_response))).click()
+            response_field = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, self.locate_response_code_field)))
+
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", response_field)
+
+            tra_responserqd = WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
+                (By.XPATH, "//select[@name='IMP_MailResponseRequired']//option[@value='" + value + "']")))
+            tra_responserqd.click()
+
         except Exception as e:
             raise e
 
@@ -1930,7 +1939,7 @@ class Create_Transmittal:
         except Exception as e:
             raise e
 
-    def tra_Message(self):
+    def tra_Message(self, msg):
 
         try:
             self.driver.switch_to.default_content()
@@ -1949,7 +1958,7 @@ class Create_Transmittal:
                 (By.XPATH,
                  "//html[@dir='ltr']//body[@class='cke_editable cke_editable_themed cke_contents_ltr cke_show_borders']")))
             # self.logger.info("in Message field")
-            message.send_keys("Test Message 2 01 March")
+            message.send_keys(msg)
             time.sleep(10)
         except Exception as e:
             raise e
@@ -1957,13 +1966,13 @@ class Create_Transmittal:
     # Transmittal Type-General Correspondence -- END
 
     # Transmittal Type-TRANSMITTAL -- START
-    def traType_transmittal(self):
+    def traType_transmittal(self, type):
         try:
             try:
                 # WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
                 #     (By.XPATH, self.tra_enterType))).send_keys(traType)
                 tra_selection = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
-                    (By.XPATH, self.tra_type_trans)))
+                    (By.XPATH, "//select[@name='IMP_MailType']//option[@value='" + type + "']")))
                 tra_selection.click()
                 # dropdown_element = Select(tra_selection)
                 # dropdown_element.select_by_visible_text(traType)
@@ -1974,14 +1983,24 @@ class Create_Transmittal:
 
     # Transmittal Type-TRANSMITTAL -- START
 
-    def traReason(self):
+    def traReason(self, reason):
         try:
+            # always change the frames code when switching between CREATE TRA or REPLY/FORWARD TRA
+
+            # self.driver.switch_to.default_content()
+            # frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+            #     (By.XPATH, self.iframeNMDocumentCntrl_xpath)))
+            # self.driver.switch_to.frame(frame1)
             self.driver.switch_to.default_content()
-            frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
-                (By.XPATH, self.iframeNMDocumentCntrl_xpath)))
-            self.driver.switch_to.frame(frame1)
-            WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
-                (By.XPATH, self.tra_response_value))).click()
+            mail_frame = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+                (By.XPATH, self.mail_management_iframe_xpath)))
+            self.driver.switch_to.frame(mail_frame)
+            reason_field = WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.XPATH, self.locate_reason_field)))
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", reason_field)
+            reason_select = WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(
+                (By.XPATH, "//select[@name='IMP_ReasonForIssue']//option[@value='" + reason + "']")))
+            reason_select.click()
         except Exception as e:
             raise e
 
@@ -2025,15 +2044,22 @@ class Create_Transmittal:
                 (By.XPATH, self.tra_ltr_ini_field_check)))
             ltr_ini_select.click()
 
-            for value in ltr_ini:
-                ltr_ini_link_xpath = f"//div[@class='v-list-item__content']//div[@class='v-list-item__title' and text()='" + value + "']"
-                checkbox_xpath = f"//div[@class='v-list-item__content']//div[@class='v-list-item__title' and text()='" + value + "']/../..//div[@class='v-input--selection-controls__input']"
+            # Locate the list of initiators
+            WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located(
+                (By.XPATH, self.ltr_initiator_list)))
 
-                # Scroll the element into view
-                doc_element = self.driver.find_element(By.XPATH, ltr_ini_link_xpath)
-                ActionChains(self.driver).move_to_element(doc_element).perform()
+            # self.logger.info("discipline value is %s", discipline_value)
+            ltr_ini_value = str(ltr_ini).strip()  # Ensure discipline_value is converted to a string
+            ltr_ini_link_xpath = f"//div[@class='v-list-item__title' and text()='{ltr_ini_value}']"
 
-                WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, checkbox_xpath))).click()
+            initiator_link_element = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, ltr_ini_link_xpath)))
+            print("initiator luink, ", initiator_link_element)
+            # Scroll the element into view
+            ActionChains(self.driver).move_to_element(initiator_link_element).perform()
+
+            checkbox_xpath = "//div[@class='v-list-item__title' and text()='" + ltr_ini_value + "']/../..//div[@class='v-simple-checkbox']"
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, checkbox_xpath))).click()
 
             time.sleep(1)
             ini_click_event_xpath = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and contains(text(), 'Letter Initiator')]"
@@ -2045,20 +2071,59 @@ class Create_Transmittal:
         except Exception as e:
             raise e
 
+    # def ltr_addressee(self, ltr_adr):
+    #     try:
+    #         ltr_adr_field = WebDriverWait(self.driver, 20).until(
+    #             EC.presence_of_element_located((By.XPATH, self.locate_ltr_adr_field)))
+    #         self.driver.execute_script("arguments[0].scrollIntoView(true);", ltr_adr_field)
+    #
+    #         ltr_adr_select = WebDriverWait(self.driver, 10).until(
+    #             EC.presence_of_element_located((By.XPATH, self.tra_ltr_adr_field_check)))
+    #         ltr_adr_select.click()
+    #
+    #         # Wait for the list of addressees to be visible
+    #         WebDriverWait(self.driver, 30).until(
+    #             EC.visibility_of_element_located((By.XPATH, self.ltr_addressee_list)))
+    #
+    #         ltr_add_value = str(ltr_adr).strip()  # Convert to string
+    #         ltr_add_link_xpath = f"//div[@class='v-list-item__title' and text()='{ltr_add_value}']"
+    #
+    #         # Scroll to the element before locating
+    #         self.driver.execute_script("arguments[0].scrollIntoView(true);", ltr_adr_field)
+    #
+    #         # Wait for the element to be clickable
+    #         addressee_link_element = WebDriverWait(self.driver, 20).until(
+    #             EC.element_to_be_clickable((By.XPATH, ltr_add_link_xpath)))
+    #
+    #         # Perform a click on the addressee link
+    #         addressee_link_element.click()
+    #
+    #         time.sleep(1)
+    #
+    #         # Locate and click the close selection button
+    #         adr_click_event_xpath = "//div[contains(text(), 'Letter Addressee') and @style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;']"
+    #         adr_close_selection = WebDriverWait(self.driver, 10).until(
+    #             EC.element_to_be_clickable((By.XPATH, adr_click_event_xpath)))
+    #
+    #         actions = ActionChains(self.driver)
+    #         actions.click(adr_close_selection).perform()
+    #     except Exception as e:
+    #         raise e
+
     def ltr_addressee(self, ltr_adr):
         try:
             ltr_adr_field = WebDriverWait(self.driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, self.locate_ltr_adr_field)))
+                EC.visibility_of_element_located((By.XPATH, self.locate_ltr_adr_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", ltr_adr_field)
 
-            ltr_adr_select = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
-                (By.XPATH, self.tra_ltr_adr_field_check)))
+            ltr_adr_select = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, self.tra_ltr_adr_field_check)))
             ltr_adr_select.click()
 
             for value in ltr_adr:
-                ltr_adr_link_xpath = f"//div[@class='v-list-item__content']//div[@class='v-list-item__title' and text()='" + value + "']"
-                checkbox_xpath = f"//div[@class='v-list-item__content']//div[@class='v-list-item__title' and text()='" + value + "']/../..//div[@class='v-input--selection-controls__input']"
-
+                ltr_adr_link_xpath = f"//div[@class='v-list-item__content']//div[@class='v-list-item__title' and text()='{value}']"
+                checkbox_xpath = f"{ltr_adr_link_xpath}/../..//div[@class='v-input--selection-controls__input']"
+                print("ltr add xpath ", ltr_adr_link_xpath)
                 # Scroll the element into view
                 doc_element = self.driver.find_element(By.XPATH, ltr_adr_link_xpath)
                 ActionChains(self.driver).move_to_element(doc_element).perform()
@@ -2066,19 +2131,20 @@ class Create_Transmittal:
                 WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, checkbox_xpath))).click()
 
             time.sleep(1)
-            adr_click_event_xpath = "//div[@style='font-size: 14px; top: 3px; position: relative; padding: 4px; text-overflow: ellipsis; overflow: hidden; height: 30px; color: rgb(119, 121, 124); font-weight: 700;' and contains(text(), 'Letter Addressee')]"
+            adr_click_event_xpath = "//div[contains(text(), 'Letter Addressee')]"
             adr_close_selection = self.driver.find_element(By.XPATH, adr_click_event_xpath)
 
             actions = ActionChains(self.driver)
             # Perform left-click on the element
             actions.click(adr_close_selection).perform()
         except Exception as e:
+            print(f"Error occurred: {e}")
             raise e
 
     def tra_contract(self, value):
 
         try:
-            message_field = WebDriverWait(self.driver, 2000).until(
+            message_field = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_contract_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", message_field)
 
@@ -2094,7 +2160,7 @@ class Create_Transmittal:
     def tra_wo(self, value):
 
         try:
-            message_field = WebDriverWait(self.driver, 2000).until(
+            message_field = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_wo_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", message_field)
 
@@ -2123,8 +2189,7 @@ class Create_Transmittal:
 
             # self.logger.info("discipline value is %s", discipline_value)
             discipline = str(discipline_value).strip()  # Ensure discipline_value is converted to a string
-            # self.logger.info("discipline value is %s", discipline)
-            discipline_link_xpath = "//div[@class='v-list-item__title' and text()='" + discipline + "']"
+            discipline_link_xpath = f"//div[@class='v-list-item__title' and text()='{discipline}']"
             discipline_link_element = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, discipline_link_xpath)))
 
@@ -2154,8 +2219,6 @@ class Create_Transmittal:
     # Transmittal Type-RFI -- END
 
     def tra_send(self, docTitle):
-
-        #  Method to input WF details in WF creation window
         try:
             self.driver.switch_to.default_content()
             frame1 = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
@@ -2164,21 +2227,14 @@ class Create_Transmittal:
 
             send_button = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, self.tra_send_button)))
-
             send_button.click()
-            # timestamp = datetime.datetime.now()
-            #
-            # # Print or store the timestamp as needed
-            # print("Object created successfully at:", timestamp)
 
-            success_msg = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, self.tra_success_msg)))
-            # # self.logger.info(" success msg located", success_msg)
-            time.sleep(3)
+            # Wait for the success message to be displayed
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, self.tra_success_msg)))
 
+            # Execute the check_doc_properties method after the success message is displayed
             self.dp.check_doc_properties(docTitle)
-
-            time.sleep(10)
         except Exception as e:
             raise e
 
@@ -2187,22 +2243,23 @@ class Create_Transmittal:
     # ----------------------------------- RFI attributes START-----------------------------
     def rfi_assetCode(self, value):
         try:
-            asset_field = WebDriverWait(self.driver, 2000).until(
+            asset_field = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_asset_code_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", asset_field)
 
-            # asset_value = WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located(
-            #     (By.XPATH, self.rfi_assetcode_value)))
-            asset_value = WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located(
-                (By.XPATH, "//select[@name='IMP_Reg02_AssetCodeLevel6']//option[@value = '" + value + "']")))
+            # Convert the integer value to a string before concatenating
+            value_str = str(value)
+            asset_value = WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+                (By.XPATH, "//select[@name='IMP_Reg02_AssetCodeLevel6']//option[@value = '" + value_str + "']")))
             asset_value.click()
 
         except Exception as e:
+            print("Error:", e)
             raise e
 
     def rfi_stage(self, value):
         try:
-            stage_field = WebDriverWait(self.driver, 2000).until(
+            stage_field = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, self.locate_stage_field)))
             self.driver.execute_script("arguments[0].scrollIntoView(true);", stage_field)
 
