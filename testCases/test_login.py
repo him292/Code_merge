@@ -1,16 +1,10 @@
 import time
-from selenium.webdriver.support import expected_conditions as EC
-import pytest
-from pageObjects.Locators import LoginPage
+from pageObjects.LocatorsLoginPage import LoginPage
 from utilities.readProperties import ReadConfig
 from utilities.customLogger import LogGen
 
 
 class Test_001_Login:
-    # baseURL = "https://pic.plm4aec.com:462/3ddashboard/"
-    # username = "hsharma"
-    # password = "Test@2023"
-
     # get data from utility file to avoid above hard coded values in test file
     baseURL = ReadConfig.getURL()
     username = ReadConfig.getUsername()
@@ -19,7 +13,6 @@ class Test_001_Login:
     logger = LogGen.loggen()
 
     # Use self keyword to access Class
-
     def test_homePageTitle(self, setup):
 
         self.logger.info("****************** Test_001_Login ******************")

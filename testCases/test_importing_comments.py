@@ -6,11 +6,13 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from utilities import XLUtils
 
-from pageObjects.LocatorsTransmittal import LoginPage, DashboardAndTabs, worklow_mg,import_comments
+from pageObjects.LocatorsTransmittal import LoginPage
+from pageObjects.LocatorsDocumentAndWorkflow import DashboardAndTabs, worklow_mg, import_comments
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
-class Test_008_Update_Comments:
+
+class Test_007_Import_Comment:
     path = ".//TestData//DataManager.xlsx"
     baseURL = ReadConfig.getURL()
     # username = ReadConfig.getUsername()
@@ -18,8 +20,7 @@ class Test_008_Update_Comments:
 
     logger = LogGen.loggen()
 
-    def test_update_comments(self,setup):
-
+    def test_import_comments(self, setup):
         self.username = XLUtils.readData(self.path, "Users", 5, 1)
         self.password = XLUtils.readData(self.path, "Users", 5, 2)
         self.dashboard = XLUtils.readData(self.path, "Inputs", 2, 1)
@@ -30,10 +31,12 @@ class Test_008_Update_Comments:
         self.assignee = XLUtils.readData(self.path, "Inputs", 3, 4)
         self.docname1 = XLUtils.readData(self.path, "Inputs", 2, 8)
         self.docname2 = XLUtils.readData(self.path, "Inputs", 3, 8)
-        self.attribute = XLUtils.readData(self.path, "Inputs", 2, 19)
-        self.status_value = XLUtils.readData(self.path, "Inputs", 3, 19)
-        self.comment = XLUtils.readData(self.path, "Inputs", 4, 19)
-        self.doc_page = XLUtils.readData(self.path, "Inputs", 5, 19)
+        self.desc = XLUtils.readData(self.path, "Inputs", 2, 16)
+        self.status = XLUtils.readData(self.path, "Inputs", 3, 16)
+        self.disciplines = XLUtils.readData_multiple(self.path, "Inputs", 2, 2, 17)
+        self.discipline = XLUtils.readData(self.path, "Inputs", 3, 17)
+        self.crs_file_path = XLUtils.readData(self.path, "Inputs", 4, 16)
+        self.pdf_file_path = XLUtils.readData(self.path, "Inputs", 5, 16)
 
         self.logger.info("*** Starting Comment Creation test ***")
         self.logger.info("*** login to the platform ***")
@@ -64,22 +67,23 @@ class Test_008_Update_Comments:
         self.wf_mg.select_Subworkflow(self.swf_no)
         self.logger.info("** Subworkflow successfully selected **")
 
-        # Updating single comment
-        # self.wf_mg.select_doc_under_task(self.assignee, self.docname1)
-        # self.wf_mg.navigate_to_CRS_mg()
-        # self.wf_mg.validate_created_cmt("General comment")
-        # self.wf_mg.edit_single_comment("General comment","desc_updated")
+        # Importing comments
+        self.wf_mg.select_inboxTask(self.assignee)
+        self.logger.info("** Desired Inbox task is selected **")
+        self.import_comment = import_comments(self.driver)
 
-        # Updating bulk comments
-        self.wf_mg.select_doc_under_task(self.assignee, self.docname1)
-        self.wf_mg.navigate_to_CRS_mg()
+        self.import_comment.click_on_export_CRS_Template()
+        for discipline in self.disciplines:
+            self.import_comment.select_disp([discipline])
+            self.logger.info(f"** {discipline} is selected **")
 
-        self.wf_mg.modify_bulk_comments([1], "Initial Status",'C')
-        # self.wf_mg.modify_bulk_comments([1],self.attribute,self.status_value,self.comment)
+        self.import_comment.click_on_save()
+        time.sleep(5)
+        self.logger.info("** File is downloaded **")
+        self.import_comment.click_on_Import_Comments()
+        self.import_comment.browse_CRS_file(self.crs_file_path)
+        self.import_comment.browse_annotation_file(self.pdf_file_path)
+        self.import_comment.click_on_Save_Import_Comments()
+        self.import_comment.validate_CRS_Comments_icon(self.assignee)
 
-        self.wf_mg.remove_comments([2])
-        self.wf_mg.filtered_comments("Remove")
-
-
-        self.logger.info("*** Ended Updating Comments test ***")
-
+        self.logger.info("*** Ended Importing Comments test ***")

@@ -6,9 +6,10 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from utilities import XLUtils
 
-from pageObjects.Locators import LoginPage, DashboardAndTabs, worklow_mg,import_comments
+from pageObjects.LocatorsTransmittal import LoginPage, DashboardAndTabs, worklow_mg, import_comments
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
+
 
 class Test_009_Workflow_mgt_tab_actions:
     path = ".//TestData//DataManager.xlsx"
@@ -18,8 +19,7 @@ class Test_009_Workflow_mgt_tab_actions:
 
     logger = LogGen.loggen()
 
-    def test_workflow_mgt_tab_actions(self,setup):
-
+    def test_workflow_mgt_tab_actions(self, setup):
         self.username = XLUtils.readData(self.path, "Users", 5, 1)
         self.password = XLUtils.readData(self.path, "Users", 5, 2)
         self.dashboard = XLUtils.readData(self.path, "Inputs", 2, 1)
@@ -50,7 +50,7 @@ class Test_009_Workflow_mgt_tab_actions:
         self.logger.info("*** Navigated to Workflow Management tab ***")
         time.sleep(5)
         self.wf_mg = worklow_mg(self.driver)
-        #Export workflows in excel
+        # Export workflows in excel
         self.wf_mg.export_Workflows()
         self.logger.info("** Workflow exported successfully in excel**")
 
@@ -67,4 +67,3 @@ class Test_009_Workflow_mgt_tab_actions:
             # self.logger.info(f"** {column} is selected **")
 
         self.logger.info("*** Ended workflow actions test ***")
-

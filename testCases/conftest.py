@@ -1,13 +1,41 @@
 import os.path
-
+import configparser
 import pytest
+from _pytest.config import Config
 import pytest_html
 from pytest_metadata.plugin import metadata_key
 from selenium import webdriver
 from pytest_html import extras
 import time
+import allure
 from datetime import datetime
+from utilities.readProperties import ReadConfig
+from utilities.customLogger import LogGen
+import requests
 
+
+@pytest.fixture(scope="session")
+def base_dir():
+    return ReadConfig.get_base_dir()
+
+
+@pytest.fixture(scope="session")
+def config_path(base_dir):
+    return os.path.join(base_dir, 'Configurations', 'config.ini')
+
+
+# @pytest.fixture(scope="session")
+# def setup_logger(base_dir):
+#     # Configure your logger here, potentially using base_dir for log file paths
+#     log_path = os.path.join(base_dir, 'Logs', 'automation.log')
+#     logger = LogGen.loggen()
+#     return logger
+
+@pytest.fixture(scope="session")
+def config(base_dir, config_path):
+    cfg = configparser.ConfigParser()
+    cfg.read(config_path)
+    return cfg
 
 
 # to avoid creating/writing the driver (statement) in each step , we can add that step within this confstep file
@@ -18,19 +46,19 @@ def setup(browser, request):  # Run test on desired browser
     if browser == 'chrome':
         driver = webdriver.Chrome()
         print("Launching Chrome Browser............")
-        driver.maximize_window();
+        driver.maximize_window()
     elif browser == 'firefox':
         driver = webdriver.Firefox()
         print("Launching Firefox Browser............")
-        driver.maximize_window();
+        driver.maximize_window()
     elif browser == 'edge':
         driver = webdriver.Edge()
         print("Launching Edge Browser............")
-        driver.maximize_window();
+        driver.maximize_window()
     else:
-        driver = webdriver.Chrome()
-        print("Launching default Chrome Browser............")
-        driver.maximize_window();
+        driver = webdriver.Firefox()
+        print("Launching default firefox Browser............")
+        driver.maximize_window()
 
     # Teardown method
     def teardown():
@@ -41,6 +69,7 @@ def setup(browser, request):  # Run test on desired browser
     request.addfinalizer(teardown)
 
     return driver
+
 
 # Now, to run tests on the desired browser, go to the “conftest.py” file and add the below-mentioned 2 methods,
 # which will get the browser from the command line. So update below:
@@ -65,7 +94,7 @@ def browser(request):  # This will return the browser value to setup method
 def pytest_configure(config):
     metadata = config.pluginmanager.getplugin("metadata")
     if metadata:
-        config.stash[metadata_key]['Project Name'] = 'feature\\Code_merge'
+        config.stash[metadata_key]['Project Name'] = 'feature\\Code_merge1'
         config.stash[metadata_key]['Module Name'] = 'Impararia'
         config.stash[metadata_key]['Tester'] = 'Impararia_Tester'
 
@@ -108,7 +137,7 @@ def pytest_runtest_makereport(item, call):
         # Assume the fixture for the driver is named 'setup'
         if 'setup' in item.fixturenames:  # Check if 'setup' fixture is used in the test
             web_driver = item.funcargs['setup']
-            screenshot_path = f"D:\\Git\\test-automation\\feature\\Code_merge\\Screenshots\\screenshot_{item.nodeid.replace('::', '__')}.png"
+            screenshot_path = f"D:\\Git\\test-automation\\feature\\Code_merge1\\Screenshots\\screenshot_{item.nodeid.replace('::', '__')}.png"
             web_driver.save_screenshot(screenshot_path)
 
         # Check if extra attribute exists, if not, create it

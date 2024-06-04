@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 
-from pageObjects.Locators import LoginPage, DashboardAndTabs, regDocument_properties, documentRegisterAndWorkflow
+from pageObjects.LocatorsTransmittal import LoginPage, DashboardAndTabs, regDocument_properties, documentRegisterAndWorkflow
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 from utilities import XLUtils

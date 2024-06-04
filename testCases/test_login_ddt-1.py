@@ -2,7 +2,7 @@ import time
 import pytest
 from selenium import webdriver
 # now to access the action methods within loginPage.py file
-from pageObjects.Locators import LoginPage
+from pageObjects.LocatorsTransmittal import LoginPage
 # =====================================
 # below line is to get access to the utilities file
 from utilities.readProperties import ReadConfig
