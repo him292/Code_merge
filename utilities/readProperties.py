@@ -71,7 +71,7 @@ class ReadConfig:
         return base_dir
 
     # for every variable access, need same no of methods
-    # static method, so that this method can be invokled using classname
+    # static method, so that this method can be invoked using classname
     @staticmethod
     def getURL():
         url = ReadConfig().config.get('common info', 'baseURL')
